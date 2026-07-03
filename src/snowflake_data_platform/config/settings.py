@@ -82,11 +82,21 @@ class DateConfig:
 
 @dataclass(frozen=True, slots=True)
 class GenerationConfig:
-    """General data generation settings."""
+    """Synthetic data generation configuration."""
 
+    # Dataset sizes
+    customers: int = 10_000
+    products: int = 500
+    orders: int = 75_000
+    order_items: int = 225_000
+    payments: int = 75_000
+    shipments: int = 73_000
+
+    # Generation behaviour
     batch_size: int = 5_000
     max_retries: int = 3
 
+    # Output
     default_file_extension: str = ".csv"
 
 @dataclass(frozen=True, slots=True)
@@ -102,6 +112,17 @@ class LoggingConfig:
     )
 
     date_format: str = "%Y-%m-%d %H:%M:%S"
+    
+@dataclass(frozen=True, slots=True)
+class FileConfig:
+    """Output file names."""
+
+    customers: str = "customers.csv"
+    products: str = "products.csv"
+    orders: str = "orders.csv"
+    order_items: str = "order_items.csv"
+    payments: str = "payments.csv"
+    shipments: str = "shipments.csv"
 
 @dataclass(frozen=True, slots=True)
 class AppConfig:
@@ -117,7 +138,7 @@ class AppConfig:
     dates: DateConfig = field(default_factory=DateConfig)
     generation: GenerationConfig = field(default_factory=GenerationConfig)
     logging: LoggingConfig = field(default_factory=LoggingConfig)
-
+    files: FileConfig = field(default_factory=FileConfig)
 # ==============================================================================
 # Public Configuration Instance
 # ==============================================================================
